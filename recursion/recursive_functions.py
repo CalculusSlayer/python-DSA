@@ -14,15 +14,24 @@ def power_of_two(n):
         return power
 
 
-if __name__=='__main__':
+def recur_test1():
+    print()
     l1 = [2, 3, 4]
     l2 = [69, -14, 27]
     print("Sum of l1 is {}".format(sum_of_array(l1, len(l1))))
     print("Sum of l2 is {}".format(sum_of_array(l2, len(l2))))
     
+
+def recur_test2():
+    print()
     k = 19
     answer1 = 2**k
     product1 = power_of_two(k)
     print("2^{1} equals {0}".format(product1, k))
     assert answer1 == product1, "User defined power function is incorrect."
+
+
+if __name__=='__main__':
+    recur_test1()
+    recur_test2()
 
