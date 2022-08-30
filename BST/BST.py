@@ -1,4 +1,4 @@
-import QueueLinkedList as q 
+import QueueLinkedList as queue # not used yet
 
 class BSTNode:
     def __init__(self, data):
@@ -34,18 +34,56 @@ def insertNode(rootNode, nodeValue):
         else:
             insertNode(rootNode.rightChild, nodeValue)
 
-def main():
-    newBST = BSTNode(None)
-    insertNode(newBST, 8)
-    insertNode(newBST, 16)
-    insertNode(newBST, 5)
-    insertNode(newBST, 99)
-    insertNode(newBST, 11)
-    insertNode(newBST, 1)
-    insertNode(newBST, 30)
-
-    print(newBST)
+def preOrderTraversal(rootNode):
+    if not rootNode:
+        return
+    print(rootNode.data, end=" > ")
+    preOrderTraversal(rootNode.leftChild)
+    preOrderTraversal(rootNode.rightChild)
 
 
-if __name__ == "__main__":
-    main()
+def inOrderTraversal(rootNode):
+    if not rootNode:
+        return
+    preOrderTraversal(rootNode.leftChild)
+    print(rootNode.data, end=" > ")
+    preOrderTraversal(rootNode.rightChild)
+
+
+def postOrderTraversal(rootNode):
+    if not rootNode:
+        return
+    preOrderTraversal(rootNode.leftChild)
+    preOrderTraversal(rootNode.rightChild)
+    print(rootNode.data, end=" > ")
+
+
+def levelOrderTraversal(rootNode):
+    if not rootNode:
+        return
+    else:
+        customQueue = queue.Queue()
+        customQueue.enqueue(rootNode)
+        while not customQueue.isEmpty():
+            root = customQueue.dequeue() # root is a regular Node type
+            print(root.value.data, end=" > ")
+            if root.value.leftChild is not None:
+                customQueue.enqueue(root.value.leftChild)
+            if root.value.rightChild is not None:
+                customQueue.enqueue(root.value.rightChild)
+
+def searchNode(rootNode, newValue):
+    if rootNode.data == newValue:
+        return f"The value {newValue} was found"
+    elif rootNode.data < newValue:
+        if rootNode.leftChild is not None:
+            return searchNode(rootNode.leftChild, newValue)
+        else:
+            return f"The value {newValue} was NOT found"
+    else:
+        if rootNode.rightChild is not None:
+            return searchNode(rootNode.rightChild, newValue)
+        else:
+            return f"The value {newValue} was NOT found"
+
+
