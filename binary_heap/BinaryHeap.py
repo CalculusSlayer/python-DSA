@@ -24,6 +24,7 @@ def levelOrderTraversal(rootNode):
     else:
         for i in range(1, rootNode.heapSize+1):
             print(rootNode.customList[i], end=" > ")
+        print()
 
 
 def heapifyTreeInsert(rootNode, index, heapType):
@@ -35,13 +36,13 @@ def heapifyTreeInsert(rootNode, index, heapType):
             temp = rootNode.customList[index]
             rootNode.customList[index] = rootNode.customList[parentIndex]
             rootNode.customList[parentIndex] = temp
-        heapifyTreeInsert(rootNode, parentIndex, heapType)
+            heapifyTreeInsert(rootNode, parentIndex, heapType) # remove indent maybe?
     elif heapType == "Max":
         if rootNode.customList[index] > rootNode.customList[parentIndex]:
             temp = rootNode.customList[index]
             rootNode.customList[index] = rootNode.customList[parentIndex]
             rootNode.customList[parentIndex] = temp 
-        heapifyTreeInsert(rootNode, parentIndex, heapType)
+            heapifyTreeInsert(rootNode, parentIndex, heapType) # remove indent maybe?
 
 
 def insertNode(rootNode, nodeValue, heapType):
@@ -82,6 +83,7 @@ def heapifyTreeExtract(rootNode, index, heapType):
                 temp = rootNode.customList[index]
                 rootNode.customList[index] = rootNode.customList[swapChild]
                 rootNode.customList[swapChild] = temp
+                #heapifyTreeExtract(rootNode, swapChild, heapType)  # more efficient possibly
         else:
             if rootNode.customList[leftIndex] > rootNode.customList[rightIndex]:
                 swapChild = leftIndex
@@ -91,7 +93,8 @@ def heapifyTreeExtract(rootNode, index, heapType):
                 temp = rootNode.customList[index]
                 rootNode.customList[index] = rootNode.customList[swapChild]
                 rootNode.customList[swapChild] = temp
-        heapifyTreeExtract(rootNode, swapChild, heapType)
+                #heapifyTreeExtract(rootNode, swapChild, heapType)  # more efficient possibly
+        heapifyTreeExtract(rootNode, swapChild, heapType)  # maybe remove?
 
 def extractNode(rootNode, heapType):
     if rootNode.heapSize == 0:
@@ -99,4 +102,10 @@ def extractNode(rootNode, heapType):
     else:
         extractedNode = rootNode.customList[1]
         rootNode.customList[1] = rootNode.customList[rootNode.heapSize]
-        
+        rootNode.customList[rootNode.heapSize] = None
+        rootNode.heapSize -= 1
+        heapifyTreeExtract(rootNode, 1, heapType)
+        return extractedNode
+
+def deleteEntireBH(rootNode):
+    rootNode.customList = None
