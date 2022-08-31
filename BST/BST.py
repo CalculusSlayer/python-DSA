@@ -75,7 +75,7 @@ def levelOrderTraversal(rootNode):
 def searchNode(rootNode, newValue):
     if rootNode.data == newValue:
         return f"The value {newValue} was found"
-    elif rootNode.data < newValue:
+    elif newValue < rootNode.data:
         if rootNode.leftChild is not None:
             return searchNode(rootNode.leftChild, newValue)
         else:
@@ -85,5 +85,41 @@ def searchNode(rootNode, newValue):
             return searchNode(rootNode.rightChild, newValue)
         else:
             return f"The value {newValue} was NOT found"
+
+def minValueNode(bstNode):
+    current = bstNode
+    while current.leftChild is not None:
+        current = current.leftChild 
+    return current 
+
+def deleteNode(rootNode, nodeValue):
+    if rootNode is None:
+        return rootNode 
+    if nodeValue < rootNode.data:
+        rootNode.leftChild = deleteNode(rootNode.leftChild, nodeValue)
+    elif nodeValue > rootNode.data:
+        rootNode.rightChild = deleteNode(rootNode.rightChild, nodeValue)
+    else:
+        if rootNode.leftChild is None:
+            temp = rootNode.rightChild
+            rootNode = None     # optional b/c rootNode is replaced by temp when returned
+            return temp
+        
+        if rootNode.rightChild is None:
+            temp = rootNode.leftChild
+            rootNode = None     # optional b/c rootNode is replaced by temp when returned
+            return temp 
+        
+        temp = minValueNode(rootNode.rightChild)
+        rootNode.data = temp.data
+        rootNode.rightChild = deleteNode(rootNode.rightChild, temp.data)
+    return rootNode
+
+def deleteBST(rootNode):
+    rootNode.data = None
+    rootNode.leftChild = None
+    rootNode.rightChild = None
+    print("Successfully cleared BST")
+
 
 

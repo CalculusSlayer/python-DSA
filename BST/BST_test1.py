@@ -18,8 +18,35 @@ def main():
     print()
     BST.levelOrderTraversal(newBST)
     print()
+
+    print(BST.searchNode(newBST, 8))
+    print(BST.searchNode(newBST, 69))
+    print(BST.searchNode(newBST, 16))
+    print(BST.searchNode(newBST, 1))
+
     
-    #print(newBST)
+    print(newBST)
+    print()
+    #BST.deleteNode(newBST, 8)
+    #BST.deleteNode(newBST, 1)
+    BST.deleteNode(newBST, 5)
+    BST.deleteNode(newBST, 8)
+    print(newBST)
+    print()
+    # print("delete 1000?")
+    # BST.deleteNode(newBST, 1000)
+    # print(newBST)
+    # print("result?")
+    BST.deleteNode(newBST, 11)
+    print()
+
+
+
+    #BST.levelOrderTraversal(newBST)
+    print(newBST)
+    
+    BST.deleteBST(newBST)
+    print(newBST)
 
 
 if __name__ == "__main__":
