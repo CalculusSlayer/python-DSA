@@ -40,6 +40,36 @@ class UnionFind:
 		self.id = [i for i in range(size)]
 
 
+	def find(int p):
+		# Finding root element of the component
+		# element p is contained in.
+		root = p
+		while root != id[root]:
+			root = id[root]
+		
+		# Path compression. All elements from p
+		# to root will now point to the root.
+		# This gives us amortized time complexity.
+		while p != root:
+			next = id[p]
+			id[p] = root
+			p = next
+	
+		
+		return root
+	
+	def connected(p, q):
+		'''
+		Return true or false base on whether
+		p and q are in the same component or not.
 
+		Return:
+			True or False.
+
+		Params:
+			p - Element 1
+			q - Element 2
+		'''
+		return find(p) == find(q)
 	
 
