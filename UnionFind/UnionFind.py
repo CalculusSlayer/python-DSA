@@ -37,6 +37,12 @@ class UnionFind:
 		self.size = self.numComponents = size
 		self.sz = [1 for i in range(size)]
 		self.id = [i for i in range(size)]
+	
+	def __repr__(self):
+		return (f"size = {size}, "
+				f"number of components = {numComponents}, "
+				f"size array = {self.sz}, "
+				f"parents array = {self.id}")
 
 
 	def find(int p):
