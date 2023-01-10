@@ -64,7 +64,7 @@ class UnionFind:
 		root = p
 		while root != id[root]:
 			root = id[root]
-		
+
 		# Path compression. All elements from p
 		# to root will now point to the root.
 		# This gives us amortized time complexity.
@@ -72,7 +72,7 @@ class UnionFind:
 			next = id[p]
 			id[p] = root
 			p = next
-	
+
 		return root
 	
 	def connected(p, q):
@@ -81,11 +81,11 @@ class UnionFind:
 		p and q are in the same component or not.
 
 		Return:
-			(boolean) True or False.
+		(boolean) True or False.
 
 		Params:
-			p (int) - Element 1
-			q (int) - Element 2
+		p (int) - Element 1
+		q (int) - Element 2
 		'''
 		return find(p) == find(q)
 
@@ -112,7 +112,7 @@ class UnionFind:
 		Return:
 			(int) Number of elements in
 			the UnionFind.
-		
+
 		Params:
 			None
 		'''
