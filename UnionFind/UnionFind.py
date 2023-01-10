@@ -39,8 +39,8 @@ class UnionFind:
 		self.id = [i for i in range(size)]
 	
 	def __repr__(self):
-		return (f"size = {size}, "
-				f"number of components = {numComponents}, "
+		return (f"size = {self.size}, "
+				f"number of components = {self.numComponents}, "
 				f"size array = {self.sz}, "
 				f"parents array = {self.id}")
 
