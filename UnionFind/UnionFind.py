@@ -4,6 +4,7 @@
 # Nayeel Imtiaz
 # 1/3/22
 
+# Beginning of UnionFind class
 class UnionFind:
 	def __init__(self, size):
 		'''
@@ -11,25 +12,23 @@ class UnionFind:
 		Find (also called disjoint set) object.
 
 		Return:
-			A `UnionFind` object.
+			(UnionFind) A `UnionFind` object.
 
 		Params:
-			size - The number of elements to
+			size (int) - The number of elements to
 			be in the Union Find structure
 
 		Instance variables:
-			size - Number of elements in Union
+			size (int) - Number of elements in Union
 			Find structure
 
-			numComponents - The number of components
-			/ groups in the Union Find.
+			numComponents (int) - The number of components
+			/groups in the Union Find.
 
-			sz - A fix sized list that keeps track
-			of the sizes of each component (only the
-			root element of each component will contain 
-			the most updated size).
+			sz (list[int]) - A fix sized list that keeps track
+			of the sizes of each component.
 
-			id - A fix sized list that keeps track of
+			id (list[int]) - A fix sized list that keeps track of
 			the current parent of each element.
 		'''
 		# TODO: Add code to throw an exception
@@ -41,6 +40,19 @@ class UnionFind:
 
 
 	def find(int p):
+		'''
+		Function finds out which component
+		element `p` is in. Then it does
+		path compression to optimize
+		the Union Find structure.
+
+		Return:
+			(int) The root of element `p`.
+
+		Params:
+			p (int) - An element in the Union Find.
+		'''
+
 		# Finding root element of the component
 		# element p is contained in.
 		root = p
@@ -55,7 +67,6 @@ class UnionFind:
 			id[p] = root
 			p = next
 	
-		
 		return root
 	
 	def connected(p, q):
@@ -64,12 +75,86 @@ class UnionFind:
 		p and q are in the same component or not.
 
 		Return:
-			True or False.
+			(boolean) True or False.
 
 		Params:
-			p - Element 1
-			q - Element 2
+			p (int) - Element 1
+			q (int) - Element 2
 		'''
 		return find(p) == find(q)
-	
 
+	def componentSize(p):
+		'''
+		Return the size of the component
+		element p is contained in.
+
+		Return:
+			(int) Size of the component element p
+			is contained in as an integer.
+
+		Params:
+			p (int) - Element
+
+		'''
+		return sz[find(p)]
+
+	def size():
+		'''
+		Return the number of elements in
+		this UnionFind.
+
+		Return:
+			(int) Number of elements in
+			the UnionFind.
+		
+		Params:
+			None
+		'''
+		return self.size
+	
+	def components():
+		'''
+		Return the number of components in
+		this UnionFind.
+
+		Return:
+			(int) Number of components in
+			this UnionFind.
+
+		Params:
+			None
+		'''
+		return self.components
+
+	def unify(p, q):
+		'''
+		Unify the sets containing elements
+		`p` and `q`.
+
+		Return:
+			None
+
+		Params:
+			p (int) - A 
+
+		'''
+
+		if self.connected(p, q):
+			return
+
+		root1 = find(p)
+		root2 = find(q)
+
+		if sz[root1] < sz[root2]:
+			sz[root2] += sz[root1]
+			id[root1] = root2
+			sz[root1] = 0
+
+		else:
+			sz[root1] += sz[root2]
+			id[root2] = root1
+			sz[root2] = 0
+
+		self.numComponents -= 1
+
+# End of UnionFind class
