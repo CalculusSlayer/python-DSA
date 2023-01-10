@@ -45,7 +45,7 @@ class UnionFind:
 				f"parents array = {self.id}")
 
 
-	def find(int p):
+	def find(p):
 		'''
 		Function finds out which component
 		element `p` is in. Then it does
