@@ -52,8 +52,5 @@ def main():
 
     print(f"Array: {random_array}, Target: {4}, result: {binary_search(random_array, 4)}")
 
-
-
-
 if __name__ == '__main__':
     main()
