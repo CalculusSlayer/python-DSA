@@ -24,7 +24,7 @@ def test_no_elements_binary_search():
 
 
 def test_large_array_binary_search():
-    big_array = [number for number in range(1, int(1e6))]
+    big_array = [number for number in range(int(-1e6), int(1e6))]
     index = 10392
     start_time = time.time()
     result = binary_search(big_array, big_array[10392])
