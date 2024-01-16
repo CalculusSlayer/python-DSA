@@ -1,7 +1,6 @@
 # binary_recursion.py
 
 def binary_search_recursion(array, target, left_index, right_index):
-    print(f"left_index = {left_index}, right_index = {right_index}")
     if not array or left_index > right_index:
         return -1
     
