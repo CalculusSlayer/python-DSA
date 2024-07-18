@@ -40,8 +40,8 @@ class UnionFind:
         return self._find_represenative(val).val
     
     def union(self, val1, val2):
-        val1_representative = self.find(val1)
-        val2_representative = self.find(val2)
+        val1_representative = self._find_represenative(val1)
+        val2_representative = self._find_represenative(val2)
         if val1_representative != val2_representative:
             val2_representative.parent = val1_representative
             self._components -= 1
