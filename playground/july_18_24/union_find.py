@@ -49,21 +49,3 @@ class UnionFind:
     @property
     def components(self):
         return self._components
-
-def main():
-    u = UnionFind(4)
-    print(u)
-
-    for val in range(4):
-        print(f"representative for {val}: {u.find(val)}")
-    print()
-    
-    u.union(0, 1)
-    for val in range(4):
-        print(f"representative for {val}: {u.find(val)}") 
-
-
-
-
-if __name__ == '__main__':
-    main()
