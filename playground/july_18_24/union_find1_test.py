@@ -37,3 +37,11 @@ def test_Union_Find_instantiation():
     for group in range(union_find_size):
         assert u.groups[group].val == group
         assert u.groups[group].parent == None
+
+
+def test_Union_Find_find_representative():
+    '''
+    Test helper function for UnionFind.find() and
+    UnionFind.union()
+    '''
+    
