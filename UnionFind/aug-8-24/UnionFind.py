@@ -2,6 +2,15 @@ class UnionFind:
     def __init__(self, n):
         self.parent = list(range(n))
         self.rank = [1] * n
+        self._size = self._components = n
+    
+    @property
+    def components(self):
+        return self._components
+    
+    @property
+    def size(self):
+        return self._size
 
     def find(self, x):
         if self.parent[x] != x:
@@ -24,9 +33,11 @@ class UnionFind:
                 self.parent[rootY] = rootX
                 # Increment the rank of the new root
                 self.rank[rootX] += 1
+            self._components -= 1
         
-        def connected(self, x, y):
-            return self.find(x) == self.find(y)
+    def connected(self, x, y):
+        return self.find(x) == self.find(y)
 
     def __repr__(self):
-        return f"parent = {self.parent}, rank = {self.rank}"
+        return (f"parent = {self.parent}, rank = {self.rank}"
+        + f"\nsize = {self._size}, components = {self._components}")
