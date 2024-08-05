@@ -24,6 +24,9 @@ class UnionFind:
                 self.parent[rootY] = rootX
                 # Increment the rank of the new root
                 self.rank[rootX] += 1
+        
+        def connected(self, x, y):
+            return self.find(x) == self.find(y)
 
     def __repr__(self):
         return f"parent = {self.parent}, rank = {self.rank}"
