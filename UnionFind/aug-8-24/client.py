@@ -59,7 +59,7 @@ def main():
     u.union(name_to_index_map['adam'],
     name_to_index_map['kat'])
     print_groups(u, name_to_index_map)
-
+    print(u)
 
 
 if __name__ == '__main__':
