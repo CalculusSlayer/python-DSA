@@ -56,7 +56,8 @@ def main():
     except AttributeError as e:
         print(f"ERROR: {e}")
 
-    u.union('adam', 'kat')
+    u.union(name_to_index_map['adam'],
+    name_to_index_map['kat'])
     print_groups(u, name_to_index_map)
 
 
