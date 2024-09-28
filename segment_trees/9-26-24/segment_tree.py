@@ -13,19 +13,28 @@ class SegmentTree:
     def build(self, data):
         # Build the segment tree in O(n)
         # First, fill the leaves (second half of the tree array)
-        # for i in range(self.n):
-        #     self.tree[self.n + i] = data[i]
-        # # Then, build the rest of the tree by calculating parents
-        # for i in range(self.n - 1, 0, -1):
-        #     self.tree[i] = min(self.tree[2 * i], self.tree[2 * i + 1])
+        for i in range(self.n):
+            self.tree[self.n + i] = data[i]
+        # Then, build the rest of the tree by calculating parents
+        for i in range(self.n - 1, 0, -1):
+            self.tree[i] = min(self.tree[2 * i], self.tree[2 * i + 1])
 
-        # insert leaf nodes in tree  
-        for i in range(self.n) :  
-            self.tree[self.n + i] = data[i];  
+        # # insert leaf nodes in tree  
+        # for i in range(self.n) :  
+        #     self.tree[self.n + i] = data[i];  
       
-        # build the tree by calculating parents  
-        for i in range(self.n - 1, 0, -1) :  
-            self.tree[i] = min(self.tree[i << 1], self.tree[i << 1 | 1])
+        # # build the tree by calculating parents  
+        # for i in range(self.n - 1, 0, -1) :  
+        #     self.tree[i] = min(self.tree[i << 1], self.tree[i << 1 | 1])
+
+    def update(self, idx, value):
+        # Update the value at index `idx` and rebuild the affected part of the tree in O(log n)
+        idx += self.n  # Move to the correct leaf
+        self.tree[idx] = value  # Update the leaf
+        # Rebuild the tree upwards
+        while idx > 1:
+            idx //= 2
+            self.tree[idx] = min(self.tree[2 * idx], self.tree[2 * idx + 1])
 
     def query(self, left, right):
         # Perform a range query for the minimum value between [left, right) in O(log n)
@@ -43,12 +52,15 @@ class SegmentTree:
             right //= 2
         return min_val
 
+
 def main():
     data_array = [5, 22, 17, 8, 13]
     segment_tree1 = SegmentTree(data_array)
     print(f"segment_tree1: {segment_tree1.tree}")
 
     print(f"[1, 3): {segment_tree1.query(1, 3)}")
+    segment_tree1.update(4, -8)
+    print(f"segment_tree1: {segment_tree1.tree}")
 
 
 if __name__ == '__main__':
