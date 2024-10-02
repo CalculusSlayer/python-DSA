@@ -10,5 +10,41 @@ Essentially make recommendations for products and make sure that the recommended
 
 Input: [(1,3), (2,7), (3,8)]
 Output: [(1,2),(1,7),(3,2),(3,7),(8,2),(8,7)]
-```
+'''
+class UnionFind:
+    def __init__(self, size):
+        self.size = size
+        self.parents = [parent for parent in range(self.size)]
+        self.rank = [1 for _ in range(self.size)]
+    
+    def find(self, element):
+        parent = self.parents[element]
+        return parent
 
+    # def union(self, element1, element2):
+    #     element1_root = self.parents[element1]
+    #     element2_root = self.parents[element2]
+
+    #     if self.rank[element1_root] > self.rank[element2_root]:
+    #         self.parents[element2_root] = element1_root
+
+def recomender(input):
+    products_map = {}
+    counter = 0
+    for product1, product2 in input:
+        if product1 not in products_map:
+            products_map[product1] = counter
+            counter += 1
+        if product2 not in products_map:
+            products_map[product2] = counter
+            counter += 1
+
+    print(f"products_map = {products_map}")
+
+def main():
+    input = [(1,3), (2,7), (3,8)]
+    recomender(input)
+
+
+if __name__ == '__main__':
+    main()
