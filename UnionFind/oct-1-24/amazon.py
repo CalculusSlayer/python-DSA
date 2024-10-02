@@ -22,13 +22,20 @@ class UnionFind:
             self.groups[element] = self.find(self.groups[element])
         return self.groups[element]
 
-    # def union(self, element1, element2):
-    #     element1_root = self.parents[element1]
-    #     element2_root = self.parents[element2]
+    def union(self, element1, element2):
+        group1 = self.find(element1)
+        group2 = self.find(element2)
 
-    #     if self.rank[element1_root] > self.rank[element2_root]:
-    #         self.parents[element2_root] = element1_root
-
+        if group1 != group2:
+            if self.ranks[group1] > self.ranks[group2]:
+                self.groups[group2] = group1
+            elif self.ranks[group1] < self.ranks[group2]:
+                self.groups[group1] = group2
+            else:
+                self.groups[group2] = group1
+                self.ranks[group1] += 1
+            self.components -= 1
+        
 def recomender(input):
     products_map = {}
     counter = 0
@@ -40,14 +47,30 @@ def recomender(input):
             products_map[product2] = counter
             counter += 1
 
-    print(f"products_map = {products_map}")
+    # print(f"products_map = {products_map}")
     union_find = UnionFind(len(products_map))
-    for product in products_map:
-
+    for product1, product2 in input:
+        union_find.union(products_map[product1], products_map[product2])
+    
+    recomendations = []
+    products_map_items = list(products_map.items())
+    for index1, (product1, group1) in enumerate(products_map_items):
+        index2 = index1 + 1
+        while index2 < len(products_map_items):
+            product2, group2 = products_map_items[index2]
+            if (
+                (union_find.find(products_map[product1]) !=
+                union_find.find(products_map[product2]))
+            ):
+                recomendations.append((product1, product2))
+            index2 += 1
+    
+    return recomendations
+    
 
 def main():
     input = [(1,3), (2,7), (3,8)]
-    recomender(input)
+    print(recomender(input))
 
 
 if __name__ == '__main__':
