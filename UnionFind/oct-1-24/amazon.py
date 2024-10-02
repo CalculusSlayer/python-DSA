@@ -14,8 +14,8 @@ Output: [(1,2),(1,7),(3,2),(3,7),(8,2),(8,7)]
 class UnionFind:
     def __init__(self, size):
         self.size = self.components = size
-        self.groups = [parent for parent in range(self.size)]
-        self.ranks = [1 for _ in range(self.size)]
+        self.groups = list(range(size))
+        self.ranks = [1] * size
     
     def find(self, element):
         if self.groups[element] != element:
@@ -36,10 +36,10 @@ class UnionFind:
                 self.ranks[group1] += 1
             self.components -= 1
         
-def recomender(input):
+def recomender(input_pairs):
     products_map = {}
     counter = 0
-    for product1, product2 in input:
+    for product1, product2 in input_pairs:
         if product1 not in products_map:
             products_map[product1] = counter
             counter += 1
@@ -49,21 +49,23 @@ def recomender(input):
 
     # print(f"products_map = {products_map}")
     union_find = UnionFind(len(products_map))
-    for product1, product2 in input:
+    for product1, product2 in input_pairs:
         union_find.union(products_map[product1], products_map[product2])
     
     recomendations = []
-    products_map_items = list(products_map.items())
-    for index1, (product1, group1) in enumerate(products_map_items):
-        index2 = index1 + 1
-        while index2 < len(products_map_items):
-            product2, group2 = products_map_items[index2]
+    product_ids = sorted(list(products_map))
+    for index1 in range(len(product_ids)):
+        for index2 in range(index1 + 1, len(product_ids)):
             if (
-                (union_find.find(products_map[product1]) !=
-                union_find.find(products_map[product2]))
+                union_find.find(products_map[product_ids[index1]]) !=
+                union_find.find(products_map[product_ids[index2]])
             ):
-                recomendations.append((product1, product2))
-            index2 += 1
+                recomendations.append(
+                    (
+                        product_ids[index1],
+                        product_ids[index2]
+                    )
+                )
     
     return recomendations
     
