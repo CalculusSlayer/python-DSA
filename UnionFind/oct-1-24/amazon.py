@@ -13,13 +13,14 @@ Output: [(1,2),(1,7),(3,2),(3,7),(8,2),(8,7)]
 '''
 class UnionFind:
     def __init__(self, size):
-        self.size = size
-        self.parents = [parent for parent in range(self.size)]
-        self.rank = [1 for _ in range(self.size)]
+        self.size = self.components = size
+        self.groups = [parent for parent in range(self.size)]
+        self.ranks = [1 for _ in range(self.size)]
     
     def find(self, element):
-        parent = self.parents[element]
-        return parent
+        if self.groups[element] != element:
+            self.groups[element] = self.find(self.groups[element])
+        return self.groups[element]
 
     # def union(self, element1, element2):
     #     element1_root = self.parents[element1]
@@ -40,6 +41,9 @@ def recomender(input):
             counter += 1
 
     print(f"products_map = {products_map}")
+    union_find = UnionFind(len(products_map))
+    for product in products_map:
+
 
 def main():
     input = [(1,3), (2,7), (3,8)]
